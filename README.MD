@@ -5,7 +5,7 @@ Easily bootstrap a Debian 12 chroot environment for a **rooted** Android device
 > YOU MAY BRICK YOUR DEVICE IF YOU'RE NOT CAREFUL!!!
 
 # Prerequisites
-- A Linux environment (only tested on Debian 12 inside WSL2)
+- A Linux environment (only tested with Debian 12 inside WSL2)
 - A rooted Android device (only tested on Android 11)
 - A functional Busybox install on said device
 - Termux and the root-repo installed
