@@ -3,6 +3,7 @@ Easily bootstrap a Debian 12 chroot environment for a **rooted** Android device
 > [!CAUTION]
 > These scripts are provided under no-warranty and I am not responsible for any damages<br>
 > YOU MAY BRICK YOUR DEVICE IF YOU'RE NOT CAREFUL!!!
+
 > [!NOTE]  
 > If you don't have a rooted Android device, see below for alternatives
 
