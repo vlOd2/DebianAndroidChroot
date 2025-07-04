@@ -1,0 +1,23 @@
+#!/bin/sh
+mount -t proc none /proc
+mount -t sysfs none /sys
+mount -t devtmpfs none /dev
+
+printf "\n\n\n"
+while [[ ! -e /dev/sda ]]; do
+	echo "Waiting for /dev/sda"
+	sleep 1
+done
+mount /dev/sda /data/chroot
+
+hostname "AndroidChrootTesting"
+while :; do
+	echo "Welcome to AndroidChrootTesting!" >> /dev/tty2
+	echo "- Testing environment for Android chroot" >> /dev/tty2
+	echo "- Full Busybox is available" >> /dev/tty2
+	echo "Chroot files are at /data/chroot" >> /dev/tty2
+	openvt -s -w -c 2 /bin/sh -li
+	#openvt -s -w -c 2 /bin/sh -c "clear"
+	sleep 1
+	echo "INIT: Restarting shell..."
+done

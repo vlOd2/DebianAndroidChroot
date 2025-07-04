@@ -1,0 +1,5 @@
+busybox/
+initramfs/
+linux/
+initramfs.cpio.gz
+*.tar.xz
