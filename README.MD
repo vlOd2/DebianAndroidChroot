@@ -3,6 +3,8 @@ Easily bootstrap a Debian 12 chroot environment for a **rooted** Android device
 > [!CAUTION]
 > These scripts are provided under no-warranty and I am not responsible for any damages<br>
 > YOU MAY BRICK YOUR DEVICE IF YOU'RE NOT CAREFUL!!!
+> [!NOTE]  
+> If you don't have a rooted Android device, see below for alternatives
 
 # Prerequisites
 - A Linux environment (only tested with Debian 12 inside WSL2)
@@ -11,7 +13,7 @@ Easily bootstrap a Debian 12 chroot environment for a **rooted** Android device
 - Termux and the root-repo installed
 
 > [!NOTE]  
-> If you are on Windows 10 or 11, you can use WSL2 instead of a VM
+> If you don't have a Linux environment and are on Windows 10/11, you can use WSL2 instead of a VM
 
 I recommend to use [this module](https://github.com/Magisk-Modules-Alt-Repo/BuiltIn-BusyBox) if you are using Magisk
 
@@ -35,11 +37,12 @@ You are now ready to start the environment
 - You may specify a username like so: `login.sh username` (it will default to root)
 3. Use the environment however you like, bear in mind that services don't really work
 4. When you are done with it, un-mount the environment (`unmount.sh`)
-- This step may have some problems on some devices, so its best to restart the device afterwards
+- This step may have some problems on some devices
+- If you see any errors, you should probably reboot and make an issue report
 
 # Testing steps
 > [!IMPORTANT]
-> You don't need to do these steps to use environment on your Android device<br>
+> You don't need to do these steps to use the environment on your Android device<br>
 > This is only meant for testing and debugging on a desktop computer
 
 > [!CAUTION]
