@@ -21,7 +21,7 @@ I recommend to use [this module](https://github.com/Magisk-Modules-Alt-Repo/Buil
 1. Bootstrap and configure Debian (`bootstrap_debian.sh`)
 - You will be dropped into a minimal root shell at the end, you can just exit or install anything extra
 2. Create the rootfs image (`make_image.sh`)
-- At this point, you can delete the `out/rootfs` *folder* to save on disk space
+- After you are done, you can delete the `out/rootfs` *folder* to save on disk space
 3. Create a `/data/chroot` folder on your Android device
 4. Copy the rootfs image (it's under `out/rootfs.img`) to that folder
 5. Copy the scripts inside `android_scripts` to that folder
