@@ -62,5 +62,5 @@ Follow the regular steps, and...
 
 # Alternatives
 If you don't have a rooted device or a computer, you can use [proot](https://wiki.termux.com/wiki/PRoot)<br>
-To quickly setup a Debian environment without any hasle, you can use [proot-distro](https://wiki.termux.com/wiki/PRoot#Installing_Linux_distributions)<br>
+To quickly setup a Debian environment without any hassle, you can use [proot-distro](https://wiki.termux.com/wiki/PRoot#Installing_Linux_distributions)<br>
 If you would like a pretty similar script to this one but for proot, you can use [debian-on-termux by sp4rkie](https://github.com/sp4rkie/debian-on-termux)
