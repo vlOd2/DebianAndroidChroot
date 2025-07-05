@@ -54,7 +54,7 @@ kill_processes() {
 }
 
 # Try to kill chroot processes
-log_info "Killing processes (this make take awhile)"
+log_info "Killing processes (this may take awhile)"
 if [ -e /proc ]; then
 	kill_processes
 else
