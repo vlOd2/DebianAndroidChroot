@@ -77,9 +77,10 @@ run_chroot "usermod -G aid_net_bt_admin,aid_net_bt,aid_inet,aid_net_raw,aid_net_
 run_chroot "usermod -g aid_inet _apt"
 
 # Configure networking
+log_info "Configuring networking"
 run_chroot "echo localhost > /etc/hostname"
-run_chroot "echo -e nameserver 1.1.1.1\nnameserver 1.0.0.1 > /etc/resolv.conf"
-run_chroot "echo -e 127.0.0.1\tlocalhost > /etc/hosts"
+run_chroot "echo -e nameserver 1.1.1.1\\\\nnameserver 1.0.0.1 > /etc/resolv.conf"
+run_chroot "echo -e 127.0.0.1\\\\tlocalhost > /etc/hosts"
 
 # Configure apt sources
 log_info "Configuring apt"
@@ -88,8 +89,8 @@ run_chroot "echo \"deb http://deb.debian.org/debian/ ${DEBIAN_RELEASE}-updates m
 run_chroot "echo \"deb http://security.debian.org/debian-security/ ${DEBIAN_RELEASE}-security main\" >> /etc/apt/sources.list"
 # Prevent systemd from being installed
 run_chroot "mkdir -p /etc/apt/preferences.d/"
-run_chroot "echo -e \"Package: systemd\nPin: release *\nPin-Priority: -1\" > /etc/apt/preferences.d/systemd"
-run_chroot "echo -e \"\n\nPackage: *systemd*\nPin: release *\nPin-Priority: -1\" >> /etc/apt/preferences.d/systemd"
+run_chroot "echo -e \"Package: systemd\\\\nPin: release *\\\\nPin-Priority: -1\" > /etc/apt/preferences.d/systemd"
+run_chroot "echo -e \"\\\\n\\\\nPackage: *systemd*\\\\nPin: release *\\\\nPin-Priority: -1\" >> /etc/apt/preferences.d/systemd"
 # Update apt sources
 run_chroot "apt update"
 run_chroot "update-command-not-found"
