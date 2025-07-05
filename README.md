@@ -19,11 +19,12 @@ Easily bootstrap a Debian 12 chroot environment for a **rooted** Android device
 I recommend to use [this module](https://github.com/Magisk-Modules-Alt-Repo/BuiltIn-BusyBox) if you **don't have Busybox** and are using Magisk
 
 # Instructions
-For *instructions* on setting up a **basic** environment, click [here](INSTRUCTIONS_BASIC.md)
-For *instructions* on setting up a **graphical** environment, click [here](INSTRUCTIONS_GUI.md)
+For *instructions* on setting up a **basic** environment, click [here](INSTRUCTIONS_BASIC.md)<br>
+For *instructions* on setting up a **graphical** environment, click [here](INSTRUCTIONS_GUI.md)<br>
 For *instructions* on setting up an emulated **testing** environment, click [here](testing/README.md)
+
 > [!IMPORTANT]
-> You don't need to follow the testing instructions to use the environment on your Android device
+> You *don't* need to follow the **testing** instructions to use the environment on your Android device
 
 # Alternatives
 If you don't have a rooted device or a computer, you can use [proot](https://wiki.termux.com/wiki/PRoot)<br>

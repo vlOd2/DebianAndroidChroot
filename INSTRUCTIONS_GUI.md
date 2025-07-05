@@ -1,6 +1,6 @@
 # Graphical environment
 Additional instructions on getting a graphical interface working<br>
-You should first make sure you have a *functioning* [**basic** environment](INSTRUCTIONS_BASIC.md) before proceeding
+You should first make sure you have a *functioning* [basic environment](INSTRUCTIONS_BASIC.md) before proceeding
 
 ## Install
 Follow the same steps as the basic install, then...
@@ -9,7 +9,7 @@ Follow the same steps as the basic install, then...
 3. install pulseaudio, make it listen on tcp
 4. install virgl
 ```
-TODO: Not done
+TODO: Not done, placeholder vague instructions
 ```
 
 ## Usage 
@@ -17,7 +17,7 @@ TODO: Not done
 2. run the x11.sh script
 3. open another shell, but this time as root
 ```
-TODO: Not done
+TODO: Not done, placeholder vague instructions
 ```
 ...And follow the same steps as the basic usage
 
