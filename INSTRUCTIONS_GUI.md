@@ -24,7 +24,7 @@ TODO: Not done, placeholder vague instructions
 # Hardware acceleration
 The `x11.sh` script uses the compatible ANGLE-based virgl server by default<br>
 If your device has Vulkan and has sane drivers (it's up to faith), 
-you can try swapping it out for regular virgl and zink or ANGLE with Vulkan
+you can try swapping it out for regular virgl and ZINK or ANGLE-based with Vulkan
 
 ## Renderers
 - llvmpipe: software rendering by Mesa (slow, best compatibility) **(default)**
@@ -32,7 +32,7 @@ you can try swapping it out for regular virgl and zink or ANGLE with Vulkan
 - virgl (virpipe): remote 3D rendering by Mesa intended for QEMU virtual machines (slow/fast, worst compatibility)
 - zink (requires regular virgl): ???
 
-- To set which renderer is used by an app, set the `GALLIUM_DRIVER` env variable:
+To set which renderer is used by an app, set the `GALLIUM_DRIVER` env variable:
 ```
 # Use llvmpipe software renderer (this is the default)
 GALLIUM_DRIVER=llvmpipe glxgears -swapinterval 0 -info
