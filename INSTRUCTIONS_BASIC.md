@@ -1,5 +1,5 @@
 # Basic environment
-Instructions for getting a basic (CLI-only) chroot environment
+Instructions for creating and using a basic (CLI-only) chroot environment
 
 ## Install
 1. Bootstrap and configure Debian (`bootstrap_debian.sh`)

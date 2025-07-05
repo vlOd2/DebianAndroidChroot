@@ -17,7 +17,7 @@ command_exists() {
 }
 
 # Check for dependencies
-if ! command_exists "mkfs.ext4"; then
+if ! command_exists "mkfs.ext4" || ! command_exists "mkswap"; then
 	exit 1
 fi
 

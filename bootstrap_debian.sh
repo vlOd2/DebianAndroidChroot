@@ -19,7 +19,7 @@ command_exists() {
 }
 
 # Check for dependencies
-if ! command_exists "debootstrap" || ! command_exists "qemu-aarch64-static"; then
+if ! command_exists "chroot" || ! command_exists "debootstrap" || ! command_exists "qemu-aarch64-static"; then
 	exit 1
 fi
 
