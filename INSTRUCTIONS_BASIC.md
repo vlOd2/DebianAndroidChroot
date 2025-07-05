@@ -14,7 +14,7 @@ Instructions for creating and using a basic (CLI-only) chroot environment
 - After you are done, you can delete the `out/rootfs` *folder* to save on disk space
 3. Create a `/data/chroot` folder on your Android device
 4. Copy the rootfs image (it's under `out/rootfs.img`) to that folder
-5. Copy the scripts inside `android_scripts` (excluding `extras`) to that folder
+5. Copy the required scripts (`copy_scripts.sh`)
 
 You are now ready to start the environment
 

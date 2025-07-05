@@ -17,7 +17,7 @@ sudo mount "${IMAGE_NAME}" "${IMAGE_MNT_DIR}"
 
 # Copy scripts
 echo "I: Copying scripts"
-sudo cp -a "../android_scripts/"* "${IMAGE_MNT_DIR}/"
+sudo cp -a "../android/"* "${IMAGE_MNT_DIR}/"
 
 # Unmount image
 echo "I: Unmounting image"

@@ -30,11 +30,26 @@ log_error() {
 print_swap_info() {
 	local swap_total=$(awk '/SwapTotal/ {print $2 / 1024}' /proc/meminfo)
 	local swap_free=$(awk '/SwapFree/ {print $2 / 1024}' /proc/meminfo)
-	log_info "[SWAP] total: ${swap_total}MB ; free: ${swap_free}MB"
+	log_info "swap total: ${swap_total}MB ; swap free: ${swap_free}MB"
 }
 
-if [[ -z "${ROOTFS_TEMP}" ]]; then
+command_exists() {
+	command -v "$1" >/dev/null 2>&1
+}
+
+is_mounted_dir() {
+	# Add a space to avoid matching /foo/bar when checking /foo
+	grep -qs "$1 " /proc/mounts
+}
+
+if [ -z "${ROOTFS_TEMP}" ]; then
 	log_warn "TMPDIR is not set, shared temp is unavailable"
+fi
+
+if ! command_exists "busybox"; then
+	log_error "Could not find \"busybox\""
+	log_error "Make sure to install it and that it is in your path and try again"
+	exit 1
 fi
 
 echo "DebianAndroidChroot"

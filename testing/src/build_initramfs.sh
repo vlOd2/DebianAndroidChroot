@@ -1,5 +1,5 @@
 #!/bin/bash
-. build_env.sh
+source ./build_env.sh
 
 cd busybox
 make defconfig

@@ -1,5 +1,4 @@
 #!/bin/bash
-# Debian bootstrapper for an Android based chroot
 set -e
 
 TARGET_DIR="out/rootfs"
@@ -60,6 +59,23 @@ run_chroot "dpkg-reconfigure tzdata"
 # Configure locales interactively
 echo "I: Configuring locale"
 run_chroot "dpkg-reconfigure locales"
+
+# Add Android groups
+run_chroot "groupadd -f -g 3001 aid_net_bt_admin"
+run_chroot "groupadd -f -g 3002 aid_net_bt"
+run_chroot "groupadd -f -g 3003 aid_inet"
+run_chroot "groupadd -f -g 3004 aid_net_raw"
+run_chroot "groupadd -f -g 3005 aid_net_admin"
+run_chroot "groupadd -f -g 3006 aid_net_bw_stats"
+run_chroot "groupadd -f -g 3007 aid_net_bw_acct"
+run_chroot "groupadd -f -g 3009 aid_readproc"
+run_chroot "groupadd -f -g 3010 aid_wakelock"
+run_chroot "groupadd -f -g 3011 aid_uhid"
+run_chroot "groupadd -f -g 3012 aid_readtracefs"
+# Add root to them
+run_chroot "usermod -G aid_net_bt_admin,aid_net_bt,aid_inet,aid_net_raw,aid_net_admin,aid_net_bw_stats,aid_net_bw_acct,aid_readproc,aid_wakelock,aid_uhid,aid_readtracefs -a root"
+# Change primary group of _apt
+run_chroot "usermod -g aid_inet _apt"
 
 # Configure apt sources
 echo "I: Configuring apt"

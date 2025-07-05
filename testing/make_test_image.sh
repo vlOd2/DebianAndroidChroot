@@ -2,8 +2,9 @@
 set -e
 
 SRC_IMAGE="../out/rootfs.img"
-IMAGE_NAME="disk/disk.img"
-IMAGE_MNT_DIR="disk/disk_mount"
+IMAGE_WORK_DIR="disk"
+IMAGE_NAME="${IMAGE_WORK_DIR}/disk.img"
+IMAGE_MNT_DIR="${IMAGE_WORK_DIR}/disk_mount"
 IMAGE_SIZE=5 # GB
 
 # Ensure a rootfs image has been created
@@ -12,6 +13,7 @@ if [[ ! -e "${SRC_IMAGE}" ]]; then
 	exit 1
 fi
 rm -f "${IMAGE_NAME}"
+mkdir -p "${IMAGE_WORK_DIR}"
 
 # Create image
 echo "I: Creating image"
@@ -30,7 +32,7 @@ sudo cp -a "${SRC_IMAGE}" "${IMAGE_MNT_DIR}/"
 
 # Copy scripts
 echo "I: Copying scripts"
-sudo cp -a "../android_scripts/"* "${IMAGE_MNT_DIR}/"
+sudo cp -a "../android/"* "${IMAGE_MNT_DIR}/"
 
 # Unmount image
 echo "I: Unmounting image"

@@ -17,7 +17,7 @@ while :; do
 	echo "- Full Busybox is available" >> /dev/tty2
 	echo "Chroot files are at /data/chroot" >> /dev/tty2
 	openvt -s -w -c 2 /bin/sh -li
-	#openvt -s -w -c 2 /bin/sh -c "clear"
+	openvt -s -w -c 2 /bin/sh -c "clear"
 	sleep 1
 	echo "INIT: Restarting shell..."
 done
