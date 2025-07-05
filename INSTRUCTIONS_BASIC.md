@@ -2,7 +2,7 @@
 Instructions for creating and using a basic (CLI-only) chroot environment
 
 > [!TIP]
-> Additional useful information is also available below, such as growing the image size or creating an user
+> Additional useful information is also available below, such as growing the image size or creating a user
 
 ## Install
 1. Bootstrap and configure Debian (`bootstrap_debian.sh`)
@@ -80,8 +80,8 @@ You can replace the `4` in `count=4` with how many GBs you want to grow
 > [!TIP]
 > Swap space should usually be half of or equal to the amount of RAM you have
 
-# Creating an user
-Creating an user is pretty similar to how you would do it on a regular Debian system<br>
+# Creating a user
+Creating a user is pretty similar to how you would do it on a regular Debian system<br>
 
 > [!IMPORTANT]  
 > You need to add the user to the `aid_inet` and `aid_net_raw` groups to be able to use the internet
@@ -97,7 +97,7 @@ Example for creating the user `john` with sudo privileges and access to the inte
 ```
 
 ## Android groups
-Android has a few special users and groups that allow an user to use certain features<br>
+Android has a few special users and groups that allow a user to use certain features<br>
 You can see the full list of them [here](https://android.googlesource.com/platform/system/core/+/master/libcutils/include/private/android_filesystem_config.h)<br>
 
 > [!WARNING]  
@@ -119,4 +119,4 @@ When creating a rootfs, the following *groups* are created and assigned their pr
 
 The root user is made a member of all of these while creating a rootfs as well<br>
 The most interesting out of all of these are `aid_inet` and `aid_net_raw`, 
-as they allow an user to create AF_INET/AF_INET6 and raw sockets (i.e make network connections)
+as they allow a user to create AF_INET/AF_INET6 and raw sockets (i.e make network connections)
