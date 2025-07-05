@@ -1,5 +1,6 @@
 #!/bin/bash
 set -e
+source ./common.sh
 
 TARGET_DIR="out/rootfs"
 DEBIAN_ARCH="arm64"
@@ -8,14 +9,11 @@ DEBIAN_EXTRA_PACKAGES="locales,dialog,nano,wget,curl,vim,command-not-found,sudo"
 DEBIAN_EXCLUDED_PACKAGES="systemd"
 DEBIAN_RELEASE="bookworm"
 
-command_exists() {
-	if ! command -v "$1" >/dev/null 2>&1; then
-		echo "E: Could not find $1"
-		echo "E: Make sure to install the required packages and try again"
-		return 1
-	fi
-	return 0
-}
+echo "DEBIAN_ARCH: ${DEBIAN_ARCH}"
+echo "DEBIAN_VARIANT: ${DEBIAN_VARIANT}"
+echo "DEBIAN_EXTRA_PACKAGES: ${DEBIAN_EXTRA_PACKAGES}"
+echo "DEBIAN_EXCLUDED_PACKAGES: ${DEBIAN_EXCLUDED_PACKAGES}"
+echo "DEBIAN_RELEASE: ${DEBIAN_RELEASE}"
 
 # Check for dependencies
 if ! command_exists "chroot" || ! command_exists "debootstrap" || ! command_exists "qemu-aarch64-static"; then
@@ -24,8 +22,8 @@ fi
 
 # Create rootfs dir
 if [[ -e "${TARGET_DIR}" ]]; then
-	echo "E: A rootfs is already present"
-	echo "E: Delete the \"${TARGET_DIR}\" directory, and try again"
+	log_error "A rootfs is already present"
+	log_error "Delete the \"${TARGET_DIR}\" directory, and try again"
 	exit 1
 fi
 mkdir -p "${TARGET_DIR}"
@@ -37,7 +35,7 @@ run_chroot() {
 }
 
 # Bootstrap Debian into rootfs dir
-echo "I: Downloading Debian"
+log_info "Downloading Debian"
 sudo debootstrap \
 	--arch="${DEBIAN_ARCH}" --foreign \
 	--variant="${DEBIAN_VARIANT}" \
@@ -45,22 +43,23 @@ sudo debootstrap \
 	"${DEBIAN_RELEASE}" "${TARGET_DIR}/" "http://ftp.debian.org/debian"
 	
 # Copy static emulator and finish bootstrap
-echo "I: Finishing Debian setup"
+log_info "Finishing Debian setup"
 sudo cp "/usr/bin/qemu-aarch64-static" "${TARGET_DIR}/usr/bin"
 run_chroot "/debootstrap/debootstrap --second-stage"
 
 # Configure tzdata interactively
-echo "I: Configuring time"
+log_info "Configuring time"
 run_chroot "echo \"0.0 0 0.0\" > /etc/adjtime"
 run_chroot "echo \"0\" >> /etc/adjtime"
 run_chroot "echo \"UTC\" >> /etc/adjtime"
 run_chroot "dpkg-reconfigure tzdata"
 
 # Configure locales interactively
-echo "I: Configuring locale"
+log_info "Configuring locale"
 run_chroot "dpkg-reconfigure locales"
 
 # Add Android groups
+log_info "Configuring users"
 run_chroot "groupadd -f -g 3001 aid_net_bt_admin"
 run_chroot "groupadd -f -g 3002 aid_net_bt"
 run_chroot "groupadd -f -g 3003 aid_inet"
@@ -78,7 +77,7 @@ run_chroot "usermod -G aid_net_bt_admin,aid_net_bt,aid_inet,aid_net_raw,aid_net_
 run_chroot "usermod -g aid_inet _apt"
 
 # Configure apt sources
-echo "I: Configuring apt"
+log_info "Configuring apt"
 run_chroot "echo \"deb http://deb.debian.org/debian/ ${DEBIAN_RELEASE} main\" > /etc/apt/sources.list"
 run_chroot "echo \"deb http://deb.debian.org/debian/ ${DEBIAN_RELEASE}-updates main\" >> /etc/apt/sources.list"
 run_chroot "echo \"deb http://security.debian.org/debian-security/ ${DEBIAN_RELEASE}-security main\" >> /etc/apt/sources.list"
@@ -94,6 +93,6 @@ run_chroot "update-command-not-found"
 run_chroot "apt clean"
 run_chroot "history -c"
 
-echo "I: Base configuration complete"
-echo "I: You may now setup additional components, or package the rootfs"
+log_info "Base configuration complete"
+log_info "You may now setup additional components, or package the rootfs"
 sudo chroot "${TARGET_DIR}/" qemu-aarch64-static /bin/bash
