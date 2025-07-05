@@ -87,9 +87,9 @@ log_info "Mounting shared temp"
 if [ -n "${ROOTFS_TEMP}" ]; then
 	# Shared temp (bind)
 	mount_dir "${ROOTFS_TEMP}" "${ROOTFS_MOUNT_DIR}/tmp" "bind"
-	busybox chmod 1777 "${ROOTFS_MOUNT_DIR}/tmp"
 	busybox find "${ROOTFS_MOUNT_DIR}/tmp" -type f -exec busybox chmod u=rw,g=,o= {} \;
 	busybox find "${ROOTFS_MOUNT_DIR}/tmp" -type d -exec busybox chmod u=rwx,g=,o= {} \;
+	busybox chmod 1777 "${ROOTFS_MOUNT_DIR}/tmp"
 else
 	# Shared temp (fallback, no TMPDIR)
 	log_warn "TMPDIR is not set, shared temp unavailable"

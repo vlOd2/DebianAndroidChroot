@@ -58,7 +58,7 @@ push_file() {
 	local status="$?"
 	set -e
 	
-	if [ "${result}" != "0" ]; then
+	if [ "${status}" != "0" ]; then
 		log_error "Failed to push \"$1\": ${result}"
 		exit 1
 	fi

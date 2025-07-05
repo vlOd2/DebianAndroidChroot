@@ -35,7 +35,7 @@ run_chroot() {
 }
 
 # Bootstrap Debian into rootfs dir
-log_info "Downloading Debian"
+log_info "Bootstrapping Debian"
 sudo debootstrap \
 	--arch="${DEBIAN_ARCH}" --foreign \
 	--variant="${DEBIAN_VARIANT}" \
@@ -43,7 +43,7 @@ sudo debootstrap \
 	"${DEBIAN_RELEASE}" "${TARGET_DIR}/" "http://ftp.debian.org/debian"
 	
 # Copy static emulator and finish bootstrap
-log_info "Finishing Debian setup"
+log_info "Running second stage"
 sudo cp "/usr/bin/qemu-aarch64-static" "${TARGET_DIR}/usr/bin"
 run_chroot "/debootstrap/debootstrap --second-stage"
 
@@ -75,6 +75,11 @@ run_chroot "groupadd -f -g 3012 aid_readtracefs"
 run_chroot "usermod -G aid_net_bt_admin,aid_net_bt,aid_inet,aid_net_raw,aid_net_admin,aid_net_bw_stats,aid_net_bw_acct,aid_readproc,aid_wakelock,aid_uhid,aid_readtracefs -a root"
 # Change primary group of _apt
 run_chroot "usermod -g aid_inet _apt"
+
+# Configure networking
+run_chroot "echo localhost > /etc/hostname"
+run_chroot "echo -e nameserver 1.1.1.1\nnameserver 1.0.0.1 > /etc/resolv.conf"
+run_chroot "echo -e 127.0.0.1\tlocalhost > /etc/hosts"
 
 # Configure apt sources
 log_info "Configuring apt"
