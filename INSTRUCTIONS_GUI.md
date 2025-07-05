@@ -2,23 +2,27 @@
 Additional instructions on getting a graphical interface working<br>
 You should first make sure you have a *functioning* [basic environment](INSTRUCTIONS_BASIC.md) before proceeding
 
+> [!CAUTION]
+> ***STUB PAGE***<br>
+> The `x11.sh` script has not been implemented and the instructions haven't been tested
+
 ## Install
+```
+TODO: Not done, placeholder, vague, incorrect instructions
+```
 Follow the same steps as the basic install, then...
 1. install the x11-repo
 2. install termux-x11-nightly
 3. install pulseaudio, make it listen on tcp
 4. install virgl
-```
-TODO: Not done, placeholder vague instructions
-```
 
 ## Usage 
+```
+TODO: Not done, placeholder, vague, incorrect instructions
+```
 1. open a regular shell
 2. run the x11.sh script
 3. open another shell, but this time as root
-```
-TODO: Not done, placeholder vague instructions
-```
 ...And follow the same steps as the basic usage
 
 # Hardware acceleration
