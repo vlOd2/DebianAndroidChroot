@@ -3,8 +3,8 @@ Additional instructions on getting a graphical interface working<br>
 You should first make sure you have a *functioning* [basic environment](INSTRUCTIONS_BASIC.md) before proceeding
 
 > [!CAUTION]
-> ***STUB PAGE***<br>
-> The `x11.sh` script has not been implemented and the instructions haven't been tested
+> Graphical environments are currently experimental<br>
+> They may or may not work on your device properly
 
 ## Install
 Follow the same steps as the basic install, then...
@@ -14,7 +14,7 @@ Follow the same steps as the basic install, then...
 pkg install termux-x11-nightly pulseaudio virglrenderer-android
 ```
 3. Copy the `android/extra/x11.sh` script to termux's **non-root** *home* directory (`/data/data/com.termux/files/home`)
-4. Ensure it's executable (`chmod +x /data/data/com.termux/files/home/x11.sh`)
+4. Change the owner and permissions of the script
 
 ## Usage 
 Follow the same steps as the basic usage (apart from un-mounting, of course), then...
