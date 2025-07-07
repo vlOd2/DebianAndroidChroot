@@ -42,6 +42,19 @@ is_mounted_dir() {
 	grep -qs "$1 " /proc/mounts
 }
 
+echo "DebianAndroidChroot"
+echo "---------------------"
+echo "CHROOT_PATH=${CHROOT_PATH}"
+echo "ROOTFS_MOUNT_DIR=${ROOTFS_MOUNT_DIR}"
+echo "ROOTFS_IMAGE=${ROOTFS_IMAGE}"
+echo "ROOTFS_TEMP=${ROOTFS_TEMP}"
+echo ""
+
+if [ $(id -u) != "0" ]; then
+	log_error "This script must be run under root"
+	exit 1
+fi
+
 if [ -z "${ROOTFS_TEMP}" ]; then
 	log_warn "TMPDIR is not set, shared temp is unavailable"
 fi
@@ -51,11 +64,3 @@ if ! command_exists "busybox"; then
 	log_error "Make sure to install it and that it is in your path and try again"
 	exit 1
 fi
-
-echo "DebianAndroidChroot"
-echo "---------------------"
-echo "CHROOT_PATH=${CHROOT_PATH}"
-echo "ROOTFS_MOUNT_DIR=${ROOTFS_MOUNT_DIR}"
-echo "ROOTFS_IMAGE=${ROOTFS_IMAGE}"
-echo "ROOTFS_TEMP=${ROOTFS_TEMP}"
-echo ""

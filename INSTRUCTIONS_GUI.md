@@ -7,23 +7,30 @@ You should first make sure you have a *functioning* [basic environment](INSTRUCT
 > The `x11.sh` script has not been implemented and the instructions haven't been tested
 
 ## Install
-```
-TODO: Not done, placeholder, vague, incorrect instructions
-```
 Follow the same steps as the basic install, then...
-1. install the x11-repo
-2. install termux-x11-nightly
-3. install pulseaudio, make it listen on tcp
-4. install virgl
+1. Install the x11-repo (`pkg install x11-repo`)
+2. Install the required packages:
+```
+pkg install termux-x11-nightly pulseaudio virglrenderer-android
+```
+3. Copy the `android/extra/x11.sh` script to termux's **non-root** *home* directory (`/data/data/com.termux/files/home`)
+4. Ensure it's executable (`chmod +x /data/data/com.termux/files/home/x11.sh`)
 
 ## Usage 
+Follow the same steps as the basic usage (apart from un-mounting, of course), then...
+1. Open a separate **non-root** shell
+2. Run the script, should be in your home folder:
 ```
-TODO: Not done, placeholder, vague, incorrect instructions
+(termux) $ ./x11.sh
 ```
-1. open a regular shell
-2. run the x11.sh script
-3. open another shell, but this time as root
-...And follow the same steps as the basic usage
+3. Return to the chroot shell
+4. Export the necessary variables:
+```
+(debian) $ export DISPLAY="127.0.0.1:0"
+(debian) $ export PULSE_SERVER="127.0.0.1"
+```
+
+If you want hardware acceleration for your X apps, read below
 
 # Hardware acceleration
 The `x11.sh` script uses the compatible ANGLE-based virgl server by default<br>
