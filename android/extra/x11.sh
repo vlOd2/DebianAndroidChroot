@@ -1,7 +1,6 @@
 #!/bin/bash
 set -eE
 export ROOTFS_PATH="/data/chroot/rootfs_mount"
-export ROOTFS_TEMP="${TMPDIR}"
 export VIRGL_SERVER="virgl_test_server_android"
 export VIRGL_SERVER_ARGS="--angle-gl"
 
@@ -60,7 +59,11 @@ terminate_processes() {
 	fi
 }
 
+TERMINATED="0"
 err_handler() {
+	if [ "${TERMINATED}" = "1" ]; then
+		return
+	fi
 	set +e
     echo "ERR_HANDLER: Error on line $1"
 	echo "ERR_HANDLER: If this was unexpected, please make an issue report"
@@ -70,7 +73,8 @@ err_handler() {
 trap 'err_handler $LINENO' ERR
 
 exit_handler() {
-	set +e # Prevent killed process from triggering errexit
+	TERMINATED="1"
+	set +eE # Prevent killed process from triggering errexit
     log_info "Received interrupt signal, exitting"
 	terminate_processes
 	exit 0
@@ -80,10 +84,9 @@ trap 'exit_handler' SIGINT
 echo "DebianAndroidChroot"
 echo "---------------------"
 echo "ROOTFS_PATH=${ROOTFS_PATH}"
-echo "ROOTFS_TEMP=${ROOTFS_TEMP}"
 echo ""
 
-if [ $(id -u) != "0" ]; then
+if [ $(id -u) = "0" ]; then
 	log_error "This script must not be run under root"
 	exit 1
 fi
@@ -98,6 +101,14 @@ if ! perform_command_check "termux-x11" || ! perform_command_check "pulseaudio" 
 	exit 1
 fi
 
+# This also gives us an oportunity to temporarily start X and adjust the permissions
+log_info "Cleaning up previous processes"
+TERMUX_X11_DEBUG=1 termux-x11 :0 >x.log 2>&1 &
+sleep 1
+chmod 1777 -R "${TMPDIR}/.X11-unix/"
+kill -9 %1
+terminate_processes
+
 log_info "Starting pulseaudio"
 pulseaudio --start --exit-idle-time=-1
 pactl load-module module-native-protocol-tcp auth-anonymous=1
@@ -107,4 +118,6 @@ log_info "Starting virgl"
 
 log_info "Starting X"
 log_info "The script will wait for CTRL C to terminate"
-XKB_CONFIG_ROOT="${ROOTFS_PATH}/usr/share/X11/xkb" TERMUX_X11_DEBUG=1 termux-x11 :0
+# This currently fails due to a lack of permissions, and because of SELInux, this script cannot be ran under root
+#export XKB_CONFIG_ROOT="${ROOTFS_PATH}/usr/share/X11/xkb"
+TERMUX_X11_DEBUG=1 termux-x11 :0 >x.log 2>&1

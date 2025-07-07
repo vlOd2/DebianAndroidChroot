@@ -68,10 +68,10 @@ mount_dir "-" "${ROOTFS_MOUNT_DIR}/sys" "sysfs"
 
 # /dev
 mkdir -p "${ROOTFS_MOUNT_DIR}/dev"
-if ! mount_dir "-" "${ROOTFS_MOUNT_DIR}/dev" "devtmpfs"; then
-	log_warn "Failed to mount dev as devtmpfs, falling back to bind mounting"
-	mount_dir "/dev" "${ROOTFS_MOUNT_DIR}/dev" "bind"
-fi
+mount_dir "/dev" "${ROOTFS_MOUNT_DIR}/dev" "bind"
+# /dev/pts
+mkdir -p "${ROOTFS_MOUNT_DIR}/dev/pts"
+mount_dir "/dev/pts" "${ROOTFS_MOUNT_DIR}/dev/pts" "bind"
 
 # Shared memory (/dev/shm, needed by chromium apps)
 mkdir -p "${ROOTFS_MOUNT_DIR}/dev/shm"

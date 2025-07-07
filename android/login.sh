@@ -13,4 +13,4 @@ if ! is_mounted_dir "${ROOTFS_MOUNT_DIR}"; then
 fi
 
 log_info "Logging in as ${USER}"
-exec busybox chroot "${ROOTFS_MOUNT_DIR}/" /bin/env -i TERM=$TERM /bin/su -l "${USER}"
+exec busybox chroot "${ROOTFS_MOUNT_DIR}/" /bin/env -i TERM="${TERM}" /bin/su -l "${USER}"

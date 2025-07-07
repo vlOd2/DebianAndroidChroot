@@ -83,14 +83,16 @@ unmount_dir() {
 
 # Un-mount
 unmount_dir "${ROOTFS_MOUNT_DIR}/dev/shm"
+unmount_dir "${ROOTFS_MOUNT_DIR}/dev/pts"
+unmount_dir "${ROOTFS_MOUNT_DIR}/dev"
 unmount_dir "${ROOTFS_MOUNT_DIR}/proc"
 unmount_dir "${ROOTFS_MOUNT_DIR}/sys"
-unmount_dir "${ROOTFS_MOUNT_DIR}/dev"
 unmount_dir "${ROOTFS_MOUNT_DIR}/tmp"
 unmount_dir "${ROOTFS_MOUNT_DIR}"
 
 # Remove the mount points
 rmdir "${ROOTFS_MOUNT_DIR}/dev/shm" >/dev/null 2>&1 || true
+rmdir "${ROOTFS_MOUNT_DIR}/dev/pts" >/dev/null 2>&1 || true
 rmdir "${ROOTFS_MOUNT_DIR}/dev" >/dev/null 2>&1 || true
 rmdir "${ROOTFS_MOUNT_DIR}/tmp" >/dev/null 2>&1 || true
 rmdir "${ROOTFS_MOUNT_DIR}/proc" >/dev/null 2>&1 || true

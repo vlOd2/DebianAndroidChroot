@@ -24,11 +24,13 @@ Follow the same steps as the basic usage (apart from un-mounting, of course), th
 (termux) $ ./x11.sh
 ```
 3. Return to the chroot shell
-4. Export the necessary variables:
+4. Export the required variables
 ```
-(debian) $ export DISPLAY="127.0.0.1:0"
-(debian) $ export PULSE_SERVER="127.0.0.1"
+export DISPLAY=":0"
+export XDG_RUNTIME_DIR="/tmp"
+export PULSE_SERVER="127.0.0.1"
 ```
+5. Run any X app
 
 If you want hardware acceleration for your X apps, read below
 

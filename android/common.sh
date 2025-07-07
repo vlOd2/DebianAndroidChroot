@@ -2,7 +2,7 @@
 export CHROOT_PATH="/data/chroot"
 export ROOTFS_MOUNT_DIR="${CHROOT_PATH}/rootfs_mount"
 export ROOTFS_IMAGE="${CHROOT_PATH}/rootfs.img"
-export ROOTFS_TEMP="${TMPDIR}"
+export ROOTFS_TEMP="/data/data/com.termux/files/usr/tmp"
 
 ANSI_ESCAPE_RESET="\033[0m"
 ANSI_ESCAPE_BLACK="\033[0;30m"
@@ -55,8 +55,9 @@ if [ $(id -u) != "0" ]; then
 	exit 1
 fi
 
-if [ -z "${ROOTFS_TEMP}" ]; then
-	log_warn "TMPDIR is not set, shared temp is unavailable"
+if [ ! -e "${ROOTFS_TEMP}" ]; then
+	log_warn "Cannot find Termux temp, shared temp is unavailable"
+	export ROOTFS_TEMP=""
 fi
 
 if ! command_exists "busybox"; then
