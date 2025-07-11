@@ -42,21 +42,12 @@ is_mounted_dir() {
 }
 
 terminate_processes() {
-	local procIDs=$(pgrep --full -d " " com.termux.x11)
-	log_info "Killing X"
+	log_info "Terminating processes"
+	local procIDs=$(pgrep --full -d " " com.termux.x11 2>/dev/null)
 	if [ -n "${procIDs}" ]; then
-		kill -9 "${procIDs}"
+		kill -9 "${procIDs}" >/dev/null 2>&1 || true
 	fi
-	
-	log_info "Killing virgl"
-	if ! killall -9 "${VIRGL_SERVER}"; then
-		log_warn "virgl was not running"
-	fi
-	
-	log_info "Killing pulseaudio"
-	if ! killall -9 "pulseaudio"; then
-		log_warn "pulseaudio was not running"
-	fi
+	killall -9 "${VIRGL_SERVER} pulseaudio" >/dev/null 2>&1 || true
 }
 
 TERMINATED="0"
@@ -64,7 +55,8 @@ err_handler() {
 	if [ "${TERMINATED}" = "1" ]; then
 		return
 	fi
-	set +e
+	set +eE
+	trap '' SIGINT
     echo "ERR_HANDLER: Error on line $1"
 	echo "ERR_HANDLER: If this was unexpected, please make an issue report"
 	terminate_processes
@@ -101,12 +93,10 @@ if ! perform_command_check "termux-x11" || ! perform_command_check "pulseaudio" 
 	exit 1
 fi
 
-# This also gives us an oportunity to temporarily start X and adjust the permissions
 log_info "Cleaning up previous processes"
-TERMUX_X11_DEBUG=1 termux-x11 :0 >x.log 2>&1 &
-sleep 1
+termux-x11 :0 &
+sleep 3
 chmod 1777 -R "${TMPDIR}/.X11-unix/"
-kill -9 %1
 terminate_processes
 
 log_info "Starting pulseaudio"
