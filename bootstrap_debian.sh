@@ -84,9 +84,9 @@ run_chroot "echo -e 127.0.0.1\\\\tlocalhost > /etc/hosts"
 
 # Configure apt sources
 log_info "Configuring apt"
-run_chroot "echo \"deb http://deb.debian.org/debian/ ${DEBIAN_RELEASE} main\" > /etc/apt/sources.list"
-run_chroot "echo \"deb http://deb.debian.org/debian/ ${DEBIAN_RELEASE}-updates main\" >> /etc/apt/sources.list"
-run_chroot "echo \"deb http://security.debian.org/debian-security/ ${DEBIAN_RELEASE}-security main\" >> /etc/apt/sources.list"
+run_chroot "echo \"deb http://deb.debian.org/debian ${DEBIAN_RELEASE} main\" > /etc/apt/sources.list"
+run_chroot "echo \"deb http://deb.debian.org/debian ${DEBIAN_RELEASE}-updates main\" >> /etc/apt/sources.list"
+run_chroot "echo \"deb http://security.debian.org/debian-security ${DEBIAN_RELEASE}-security main\" >> /etc/apt/sources.list"
 # Prevent systemd from being installed
 run_chroot "mkdir -p /etc/apt/preferences.d/"
 run_chroot "echo -e \"Package: systemd\\\\nPin: release *\\\\nPin-Priority: -1\" > /etc/apt/preferences.d/systemd"
