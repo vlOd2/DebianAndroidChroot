@@ -25,7 +25,6 @@ You are now ready to start the environment<br>
 All of these steps must be done inside a **root** shell
 1. Navigate to `/data/chroot`
 2. Mount the environment (`mount.sh`)
-- You might get warnings about TMPDIR not being set, you can safely ignore them
 3. Login into the environment (`login.sh`)
 - You may specify a username like so: `login.sh username` (it will default to root)
 4. Use the environment however you like, bear in mind that *services* won't be autostarted, and systemd is unavailable
@@ -119,4 +118,5 @@ When creating a rootfs, the following *groups* are created and assigned their pr
 
 The root user is made a member of all of these while creating a rootfs as well<br>
 The most interesting out of all of these are `aid_inet` and `aid_net_raw`, 
+
 as they allow a user to create AF_INET/AF_INET6 and raw sockets (i.e make network connections)
